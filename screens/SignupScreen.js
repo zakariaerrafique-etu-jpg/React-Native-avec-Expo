@@ -1,53 +1,136 @@
+import React,{useState} from "react";
 
-import React,{useState} from 'react';
-import {View,TextInput,Button,Alert} from 'react-native';
+import {
+View,
+Text,
+TextInput,
+Button,
+Alert,
+StyleSheet
+} from "react-native";
 
-export default function SignupScreen(){
 
-const[name,setName]=useState("");
-const[email,setEmail]=useState("");
-const[password,setPassword]=useState("");
+export default function SignupScreen({navigation}){
+
+
+const [username,setUsername]=useState("");
+const [email,setEmail]=useState("");
+const [password,setPassword]=useState("");
+
+
 
 const signup=()=>{
 
-if(name===""||email===""||password===""){
-Alert.alert("Error","Please fill all fields");
+
+if(
+username==="" ||
+email==="" ||
+password===""
+){
+
+Alert.alert(
+"Signup Error",
+"All fields are required"
+);
+
 return;
+
 }
 
-Alert.alert("Success","Account Created");
-}
+
+Alert.alert(
+"Success",
+"Account created"
+);
+
+
+navigation.navigate("Login");
+
+
+};
+
+
 
 return(
 
-<View>
+<View style={styles.container}>
+
+
+<Text style={styles.title}>
+Create Account
+</Text>
+
 
 <TextInput
+style={styles.input}
 placeholder="Username"
-value={name}
-onChangeText={setName}
+value={username}
+onChangeText={setUsername}
 />
 
+
 <TextInput
+style={styles.input}
 placeholder="Email"
 value={email}
 onChangeText={setEmail}
 />
 
+
 <TextInput
+style={styles.input}
 placeholder="Password"
 secureTextEntry
 value={password}
 onChangeText={setPassword}
 />
 
+
 <Button
-title="Sign Up"
+title="Signup"
 onPress={signup}
 />
+
+
+<Text
+style={styles.link}
+onPress={()=>navigation.navigate("Login")}
+>
+Already have account? Login
+</Text>
+
 
 </View>
 
 )
 
 }
+
+
+
+const styles=StyleSheet.create({
+
+container:{
+flex:1,
+justifyContent:"center",
+padding:20
+},
+
+title:{
+fontSize:30,
+textAlign:"center",
+marginBottom:30
+},
+
+input:{
+borderWidth:1,
+padding:12,
+marginBottom:15
+},
+
+link:{
+marginTop:20,
+textAlign:"center"
+}
+
+});
